@@ -4,9 +4,14 @@ import com.sportradar.exception.MatchAlreadyStartedException;
 import com.sportradar.exception.MatchNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.reverseOrder;
 
 public class LiveFootballScoreboard implements Scoreboard {
 
@@ -36,7 +41,11 @@ public class LiveFootballScoreboard implements Scoreboard {
     }
 
     public List<ScoreboardMatch> getSummary() {
-        return new ArrayList<>();
+        return liveMatches.stream()
+                .sorted(
+                        comparing(ScoreboardMatch::getTotalScore, reverseOrder())
+                                .thenComparing(ScoreboardMatch::getStartedAt, reverseOrder()))
+                .collect(Collectors.toList());
     }
 
 }

@@ -9,6 +9,10 @@ import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class LiveFootballScoreboardFinishMatchTest {
 
@@ -27,9 +31,10 @@ public class LiveFootballScoreboardFinishMatchTest {
     void shouldFinishMatch() {
         // when
         scoreboard.finishMatch(match);
+        List<ScoreboardMatch> summary = scoreboard.getSummary();
 
         // then
-        // TODO: check if match is no longer on the scoreboard summary
+        assertEquals(0, summary.size());
     }
 
     @Test
@@ -42,7 +47,8 @@ public class LiveFootballScoreboardFinishMatchTest {
         Executable finishMatchOp = () -> scoreboard.finishMatch(match);
 
         // then
-        Assertions.assertThrows(MatchNotFoundException.class, finishMatchOp);
+        assertThrows(MatchNotFoundException.class, finishMatchOp);
+        assertEquals(0, scoreboard.getSummary().size());
     }
 
     @Test
@@ -54,7 +60,10 @@ public class LiveFootballScoreboardFinishMatchTest {
         Executable finishMatchOp = () -> scoreboard.finishMatch(detachedMatch);
 
         // then
-        Assertions.assertThrows(MatchNotFoundException.class, finishMatchOp);
+        assertThrows(MatchNotFoundException.class, finishMatchOp);
+        List<ScoreboardMatch> summary = scoreboard.getSummary();
+        assertEquals(1, summary.size());
+        assertTrue(summary.contains(match));
     }
 
 }

@@ -2,12 +2,14 @@ package com.sportradar;
 
 import com.sportradar.exception.MatchNotFoundException;
 import lombok.SneakyThrows;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class LiveFootballScoreboardUpdateScoreTest {
@@ -29,8 +31,8 @@ public class LiveFootballScoreboardUpdateScoreTest {
         scoreboard.updateScore(match, 1, 0);
 
         // then
-        Assertions.assertEquals(1, match.getHomeTeamScore());
-        Assertions.assertEquals(0, match.getAwayTeamScore());
+        assertEquals(1, match.getHomeTeamScore());
+        assertEquals(0, match.getAwayTeamScore());
     }
 
     @Test
@@ -41,8 +43,8 @@ public class LiveFootballScoreboardUpdateScoreTest {
         scoreboard.updateScore(match, 1, 1);
 
         // then
-        Assertions.assertEquals(1, match.getHomeTeamScore());
-        Assertions.assertEquals(1, match.getAwayTeamScore());
+        assertEquals(1, match.getHomeTeamScore());
+        assertEquals(1, match.getAwayTeamScore());
     }
 
     @Test
@@ -54,8 +56,8 @@ public class LiveFootballScoreboardUpdateScoreTest {
         scoreboard.updateScore(match, 4, 4);
 
         // then
-        Assertions.assertEquals(4, match.getHomeTeamScore());
-        Assertions.assertEquals(4, match.getAwayTeamScore());
+        assertEquals(4, match.getHomeTeamScore());
+        assertEquals(4, match.getAwayTeamScore());
     }
 
     @ParameterizedTest
@@ -65,7 +67,7 @@ public class LiveFootballScoreboardUpdateScoreTest {
         Executable updateScoreOp = () -> scoreboard.updateScore(match, homeTeamScore, awayTeamScore);
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, updateScoreOp);
+        assertThrows(IllegalArgumentException.class, updateScoreOp);
     }
 
     @Test
@@ -76,7 +78,7 @@ public class LiveFootballScoreboardUpdateScoreTest {
         Executable updateScoreOp = () -> scoreboard.updateScore(detachedMatch, 1, 0);
 
         // then
-        Assertions.assertThrows(MatchNotFoundException.class, updateScoreOp);
+        assertThrows(MatchNotFoundException.class, updateScoreOp);
     }
 
 }

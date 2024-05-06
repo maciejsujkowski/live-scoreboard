@@ -28,9 +28,8 @@ public class ScoreboardMatch {
         this.startedAt = LocalDateTime.now();
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s %s:%s %s-%s", startedAt.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_TIME), homeTeamScore, awayTeamScore, homeTeam, awayTeam);
+    public int getTotalScore() {
+        return this.homeTeamScore + this.awayTeamScore;
     }
 
     void updateScore(int homeTeamScore, int awayTeamScore) {
@@ -42,6 +41,11 @@ public class ScoreboardMatch {
         }
         this.homeTeamScore = homeTeamScore;
         this.awayTeamScore = awayTeamScore;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s:%s %s-%s", startedAt.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_TIME), homeTeamScore, awayTeamScore, homeTeam, awayTeam);
     }
 
 }

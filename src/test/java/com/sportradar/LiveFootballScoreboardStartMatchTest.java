@@ -11,6 +11,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class LiveFootballScoreboardStartMatchTest {
 
     private LiveFootballScoreboard scoreboard;
@@ -28,11 +32,14 @@ public class LiveFootballScoreboardStartMatchTest {
         ScoreboardMatch match = scoreboard.startNewMatch(homeTeam, awayTeam);
 
         // then
-        Assertions.assertEquals(homeTeam, match.getHomeTeam());
-        Assertions.assertEquals(awayTeam, match.getAwayTeam());
-        Assertions.assertEquals(0, match.getHomeTeamScore());
-        Assertions.assertEquals(0, match.getAwayTeamScore());
-        Assertions.assertNotNull(match.getStartedAt());
+        assertEquals(homeTeam, match.getHomeTeam());
+        assertEquals(awayTeam, match.getAwayTeam());
+        assertEquals(0, match.getHomeTeamScore());
+        assertEquals(0, match.getAwayTeamScore());
+        assertNotNull(match.getStartedAt());
+        List<ScoreboardMatch> summary = scoreboard.getSummary();
+        assertEquals(1, summary.size());
+        assertTrue(summary.contains(match));
     }
 
     @ParameterizedTest
@@ -44,7 +51,8 @@ public class LiveFootballScoreboardStartMatchTest {
         Executable createMatchOp = () -> scoreboard.startNewMatch(homeTeam, "Brazil");
 
         // then
-        Assertions.assertThrows(IllegalArgumentException.class, createMatchOp);
+        assertThrows(IllegalArgumentException.class, createMatchOp);
+        assertEquals(0, scoreboard.getSummary().size());
     }
 
     @Test
@@ -57,7 +65,10 @@ public class LiveFootballScoreboardStartMatchTest {
         Executable createDuplicateMatchOp = () -> scoreboard.startNewMatch("Argentina", "Brazil");
 
         // then
-        Assertions.assertThrows(MatchAlreadyStartedException.class, createDuplicateMatchOp);
+        assertThrows(MatchAlreadyStartedException.class, createDuplicateMatchOp);
+        List<ScoreboardMatch> summary = scoreboard.getSummary();
+        assertEquals(1, summary.size());
+        assertTrue(summary.contains(match));
     }
 
 }
