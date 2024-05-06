@@ -1,21 +1,28 @@
 package com.sportradar;
 
-import java.util.Map;
+import com.sportradar.exception.MatchAlreadyStartedException;
+
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Scoreboard {
 
-    Map<String, Match> liveMatchesMap = new ConcurrentHashMap<>();
+    private Set<ScoreboardMatch> liveMatches = ConcurrentHashMap.newKeySet();
 
-    Match startNewMatch(String homeTeam, String awayTeam) {
-        return null;
+    ScoreboardMatch startNewMatch(String homeTeam, String awayTeam) throws MatchAlreadyStartedException {
+        ScoreboardMatch scoreboardMatch = new ScoreboardMatch(homeTeam, awayTeam);
+        if (liveMatches.contains(scoreboardMatch)) {
+            throw new MatchAlreadyStartedException(String.format("Match %s-%s is already on the scoreboard.", homeTeam, awayTeam));
+        }
+        liveMatches.add(scoreboardMatch);
+        return scoreboardMatch;
     }
 
-    void finishMatch(Match match) {
+    void finishMatch(ScoreboardMatch scoreboardMatch) {
 
     }
 
-    void updateScore(Match match, int homeTeamScore, int awayTeamScore) {
+    void updateScore(ScoreboardMatch scoreboardMatch, int homeTeamScore, int awayTeamScore) {
 
     }
 
