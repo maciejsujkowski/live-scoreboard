@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class ScoreboardStartMatchTest {
+public class LiveFootballScoreboardStartMatchTest {
 
     private LiveFootballScoreboard scoreboard;
 

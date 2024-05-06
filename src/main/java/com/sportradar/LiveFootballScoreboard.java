@@ -28,8 +28,11 @@ public class LiveFootballScoreboard implements Scoreboard {
         match.updateScore(homeTeamScore, awayTeamScore);
     }
 
-    public void finishMatch(ScoreboardMatch match) {
-
+    public void finishMatch(ScoreboardMatch match) throws MatchNotFoundException {
+        if (!liveMatches.contains(match)) {
+            throw new MatchNotFoundException("Match " + match + " not found on the scoreboard!");
+        }
+        liveMatches.remove(match);
     }
 
     public List<ScoreboardMatch> getSummary() {
