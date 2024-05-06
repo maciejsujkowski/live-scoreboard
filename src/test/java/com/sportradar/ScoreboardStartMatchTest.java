@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class ScoreboardTest {
+public class ScoreboardStartMatchTest {
 
     private Scoreboard scoreboard;
 
