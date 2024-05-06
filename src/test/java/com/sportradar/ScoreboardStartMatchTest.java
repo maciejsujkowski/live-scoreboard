@@ -13,11 +13,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ScoreboardStartMatchTest {
 
-    private Scoreboard scoreboard;
+    private LiveFootballScoreboard scoreboard;
 
     @BeforeEach
     void setupEach() {
-        scoreboard = new Scoreboard();
+        scoreboard = new LiveFootballScoreboard();
     }
 
     @ParameterizedTest

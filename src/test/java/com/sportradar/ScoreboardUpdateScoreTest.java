@@ -12,13 +12,13 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 public class ScoreboardUpdateScoreTest {
 
-    private Scoreboard scoreboard;
+    private LiveFootballScoreboard scoreboard;
     private ScoreboardMatch match;
 
     @BeforeEach
     @SneakyThrows
     void setupEach() {
-        scoreboard = new Scoreboard();
+        scoreboard = new LiveFootballScoreboard();
         match = scoreboard.startNewMatch("Germany", "France");
     }
 

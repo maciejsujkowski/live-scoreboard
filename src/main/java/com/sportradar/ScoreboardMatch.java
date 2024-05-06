@@ -13,9 +13,7 @@ public class ScoreboardMatch {
 
     private String homeTeam;
     private String awayTeam;
-    @Setter
     private int homeTeamScore;
-    @Setter
     private int awayTeamScore;
     private LocalDateTime startedAt;
 
@@ -33,6 +31,17 @@ public class ScoreboardMatch {
     @Override
     public String toString() {
         return String.format("%s %s:%s %s-%s", startedAt.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_TIME), homeTeamScore, awayTeamScore, homeTeam, awayTeam);
+    }
+
+    void updateScore(int homeTeamScore, int awayTeamScore) {
+        if (homeTeamScore == this.homeTeamScore && awayTeamScore == this.awayTeamScore) {
+            throw new IllegalArgumentException("Nothing to update for match " + this);
+        }
+        if (homeTeamScore < 0 || awayTeamScore < 0) {
+            throw new IllegalArgumentException(String.format("Cannot update match %s to %s:%s", this, homeTeamScore, awayTeamScore));
+        }
+        this.homeTeamScore = homeTeamScore;
+        this.awayTeamScore = awayTeamScore;
     }
 
 }
