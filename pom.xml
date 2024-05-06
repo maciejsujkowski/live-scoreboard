@@ -6,7 +6,11 @@
 
     <groupId>com.sportradar</groupId>
     <artifactId>live-scoreboard</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Live Scoreboard Library</description>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -15,8 +19,6 @@
         <junit.version>5.10.2</junit.version>
         <lombok.version>1.18.32</lombok.version>
         <apache-commons.version>3.14.0</apache-commons.version>
-        <jacoco.version>0.8.12</jacoco.version>
-        <surefire.version>3.2.5</surefire.version>
     </properties>
 
     <dependencies>
@@ -43,13 +45,25 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
+                <version>3.2.5</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
                         <goals>
