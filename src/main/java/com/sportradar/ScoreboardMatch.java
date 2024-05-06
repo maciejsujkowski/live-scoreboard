@@ -45,7 +45,12 @@ public class ScoreboardMatch {
 
     @Override
     public String toString() {
-        return String.format("%s %s:%s %s-%s", startedAt.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_TIME), homeTeamScore, awayTeamScore, homeTeam, awayTeam);
+        return String.format("%s %s:%s %s-%s",
+                startedAt.truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_TIME),
+                homeTeamScore,
+                awayTeamScore,
+                homeTeam,
+                awayTeam);
     }
 
 }
